@@ -1,0 +1,37 @@
+body {
+  background-image: url('footer_lodyas.png');
+  font-family: 'Lato', sans-serif !important;
+}
+
+#home {
+  color: #F7F7F7;
+  text-align: center;
+}
+
+#home h1 {
+  font-size: 3.5rem;
+  letter-spacing: 3px;
+}
+
+.panel {
+  background-color: #FFFFFF;
+  opacity: .85;
+  color: #5F5F5F;
+}
+
+#form2 {
+  padding-top: 30px;
+}
+
+#form2 label {
+  font-size: 1.5rem;
+  color: #F7F7F7;
+  letter-spacing: 2px;
+}
+
+#topic {
+  color: #F7F7F7;
+  font-size: 3.5rem;
+  letter-spacing: 3px;
+  text-align: center;
+}

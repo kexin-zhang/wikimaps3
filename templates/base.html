@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='foundation-6.2.3-complete/css/foundation.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://use.fontawesome.com/d2c891c2de.js"></script>
+    <title>WikiMaps</title>
+  </head>
+  <body>
+    <div class="row full-width">
+      <form id="form2" action="/search" method="POST">
+        <div class="row">
+          <div class="small-3 large-2 columns">
+            <label for="right-label" class="right inline">WIKIMAPS</label>
+          </div>
+          <div class="small-9 large-10 columns">
+            <input type="text" id="right-label" name="query" placeholder="Search for a topic">
+          </div>
+        </div>
+      </form>
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

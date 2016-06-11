@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='foundation-6.2.3-complete/css/foundation.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://use.fontawesome.com/d2c891c2de.js"></script>
+    <title>WikiMaps</title>
+  </head>
+  <body>
+    <div class="row full-width" id="home">
+      <div class="row">
+        <h1>WIKIMAPS</h1>
+      </div>
+      <div class="row">
+        <div class="large-10 large-centered columns">
+          <div class="panel">
+            <p>wiki vis goes here</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h4>Explore Wikipedia like never before.</h4>
+      </div>
+      <form action="/search" method="POST">
+        <div class="row">
+          <div class="large-12 columns">
+            <input name="query" type="text" placeholder="Search for a topic">
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
