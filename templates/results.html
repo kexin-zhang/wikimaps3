@@ -2,6 +2,39 @@
 
 {% block content %}
   <div class="row">
-    <h1 id="topic">{{ topic }}</h1>
+    <h1 id="title">{{ data.name }}</h1>
+  </div>
+  <div class="row">
+    <div class="large-3 columns">
+      <div class="panel">
+        <ul>
+        {% for element in data.children %}
+          <li class="topics">{{ element.name }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="large-9 columns" id="vis">
+      <div class="panel">
+        <canvas id="vis_canvas" width="800" height="700"/>
+        <script>
+        var subtopic = function(topic) {
+          $.getJSON('/subtopic', {'topic': topic},
+          function(data){
+            console.log(data);
+          }
+        );
+        };  
+          var graph = new Springy.Graph();
+          var root = graph.newNode({label: '{{data.name}}' })
+          {% for element in data.children %}
+            graph.newEdge(root, graph.newNode({label: "{{element.name}}", ondoubleclick: subtopic("{{element.name}}") }) )
+          {% endfor %}
+
+          $('#vis_canvas').springy({graph: graph});
+
+        </script>
+      </div>
+    </div>
   </div>
 {% endblock %}

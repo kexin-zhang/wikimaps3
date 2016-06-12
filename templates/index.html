@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='foundation-6.2.3-complete/css/foundation.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://use.fontawesome.com/d2c891c2de.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='springy.js') }}"></script>
+    <script src="{{ url_for('static', filename='springyui.js') }}"></script>
     <title>WikiMaps</title>
   </head>
   <body>
@@ -17,7 +20,43 @@
       <div class="row">
         <div class="large-10 large-centered columns">
           <div class="panel">
-            <p>wiki vis goes here</p>
+            <canvas id="example-vis" width="1000" height="600"/>
+            <script>
+              var graph = new Springy.Graph();
+
+              var root = graph.newNode({label: 'Wikipedia' });
+              var visualeditor = graph.newNode({label: 'VisualEditor' });
+              var civilwar = graph.newNode({label: 'American Civil War'});
+              var wikirevolution = graph.newNode({label: 'The Wikipedia Revolution'});
+              var industrial = graph.newNode({label: 'Industrial organization'});
+              var slogan = graph.newNode({label: 'Slogan'});
+
+              graph.newEdge(root, visualeditor);
+              graph.newEdge(root, civilwar);
+              graph.newEdge(root, wikirevolution);
+              graph.newEdge(root, industrial);
+              graph.newEdge(root, slogan);
+
+              var industrialTopics = ['Economic growth', 'Microeconomics', 'Game theory', 'Antitrust law', 'Nonrenewable resource']
+              var warTopics = ['Stonewall Jackson', 'George Meade', 'Battle of Secessionville', 'Gone with the Wind (film)', 'Siege of Vicksburg']
+              var visualTopics = ['Wikipedian', 'The Register', 'Node.js', 'Beta software', 'Wikimedia Foundation']
+              var sloganTopics = ['Censorship', 'Propaganda techniques', 'Television advertisement', 'Anglicisation', 'Taglines']
+              var revolutionTopics = ['Andrew Lih', 'Larry Sanger', 'New media', 'Nonfiction', 'Essjay controversy']
+
+              var connectTopics = function(topicslist, topic) {
+                for (i=0; i<topicslist.length; i++) {
+                  graph.newEdge(topic, graph.newNode({label: topicslist[i]}));
+                }
+              };
+
+              connectTopics(industrialTopics, industrial)
+              connectTopics(warTopics, civilwar)
+              connectTopics(visualTopics, visualeditor)
+              connectTopics(sloganTopics, slogan)
+              connectTopics(revolutionTopics, wikirevolution)
+
+              $('#example-vis').springy({graph: graph});
+            </script>
           </div>
         </div>
       </div>

@@ -17,6 +17,8 @@ body {
   background-color: #FFFFFF;
   opacity: .85;
   color: #5F5F5F;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 #form2 {
@@ -29,9 +31,13 @@ body {
   letter-spacing: 2px;
 }
 
-#topic {
+#title {
   color: #F7F7F7;
   font-size: 3.5rem;
-  letter-spacing: 3px;
   text-align: center;
+}
+
+.topics {
+  list-style-type: none;
+  padding-bottom: 10px;
 }

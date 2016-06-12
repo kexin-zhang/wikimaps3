@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='foundation-6.2.3-complete/css/foundation.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://use.fontawesome.com/d2c891c2de.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='springy.js') }}"></script>
+    <script src="{{ url_for('static', filename='springyui.js') }}"></script>
     <title>WikiMaps</title>
   </head>
   <body>
@@ -13,7 +16,7 @@
       <form id="form2" action="/search" method="POST">
         <div class="row">
           <div class="small-3 large-2 columns">
-            <label for="right-label" class="right inline">WIKIMAPS</label>
+            <label for="right-label" class="right inline" style="text-align:center;"><a href="{{ url_for('.main') }}">WIKIMAPS</a></label>
           </div>
           <div class="small-9 large-10 columns">
             <input type="text" id="right-label" name="query" placeholder="Search for a topic">
