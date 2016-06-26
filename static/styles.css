@@ -40,10 +40,21 @@ body {
 .topics {
   list-style-type: none;
   padding-bottom: 10px;
+  cursor: pointer;
 }
 
 #mynetwork {
   margin: auto;
   width: 100%;
-  height: 700px;
+  height: 800px;
+}
+
+#info-row {
+  padding-bottom: 80px;
+}
+
+#instructions {
+  font-style: italic;
+  text-align: center;
+  color: white;
 }

@@ -5,14 +5,12 @@
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ url_for('static', filename='foundation-6.2.3-complete/css/foundation.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='springy.js') }}"></script>
-    <script src="{{ url_for('static', filename='springyui.js') }}"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.js"></script>
     <title>WikiMaps</title>
   </head>
   <body>
-    <div class="row full-width">
+    <div class="row" style="max-width: 90rem;">
       <form id="form2" action="/search" method="POST">
         <div class="row">
           <div class="small-3 large-2 columns">
@@ -25,11 +23,12 @@
       </form>
         <div class="row">
           <h1 id="title">{{ data.name }}</h1>
+          <p id="instructions">Click on a topic name on the left to add to the visualization below. </p>
         </div>
-        <div class="row">
+        <div class="row" id="info-row">
           <div class="large-3 columns">
-            <div class="panel">
-              <ul>
+            <div class="panel topic-container">
+              <ul id="topics-list">
               {% for element in data.children %}
                 <li class="topics">{{ element.name }}</li>
               {% endfor %}
@@ -58,20 +57,55 @@
     var nodes = response[0];
     var edges = response[1];
     console.log(nodes);
+    var clicked = []
 
-    $('.topics').click(function(){
+    $("body").on("click", ".topics", function() {
       var topic = $(this).text();
       console.log(topic);
-      response = subtopic(topic);
-      console.log(response);
+      if (clicked.indexOf(topic) == -1) {
+        clicked.push(topic);
+        var newtopics = [];
 
+        $.getJSON('/subtopic', {'topic': topic},
+        function(data){
+          console.log(data);
+          var len = topiclist.length + 1;
+
+          for (i=0; i<data.children.length; i++){
+            topiclist.push(data.children[i].name);
+            newtopics.push(data.children[i].name);
+          }
+          console.log(topiclist);
+
+          var index = topiclist.indexOf(topic) + 1;
+          var nodelist = turnIntoNodes(newtopics, len);
+          var edgelist = turnIntoEdges(index, len, len+4);
+          console.log(edgelist);
+
+          for (i=0; i<nodelist.length; i++) {
+            nodes.add(nodelist[i]);
+          }
+          for (i=0; i<edgelist.length; i++){
+            edges.add(edgelist[i]);
+          }
+
+          $('.topics').hide();
+          $('#topics-title').hide();
+          $('.topic-container').prepend('<h5 id="topics-title">'+ topic + '</h5>');
+          for (i=0; i<newtopics.length; i++){
+            $('#topics-list').append('<li class="topics">' + newtopics[i] + '</li>');
+          }
+        });
+
+      }
     });
 
     var subtopic = function(topic) {
+      var newtopics = [];
       $.getJSON('/subtopic', {'topic': topic},
       function(data){
         console.log(data);
-        var newtopics = [];
+
         for (i=0; i<data.children.length; i++){
           topiclist.push(data.children[i].name);
           newtopics.push(data.children[i].name);
@@ -88,6 +122,7 @@
           edges.add(edgelist[i]);
         }
       });
+      return newtopics;
   }
   });
 
