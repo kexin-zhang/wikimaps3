@@ -43,6 +43,10 @@ body {
   cursor: pointer;
 }
 
+.topics: hover{
+  opacity: .6;
+}
+
 #mynetwork {
   margin: auto;
   width: 100%;
@@ -66,4 +70,8 @@ body {
 
 .go-back:hover {
   opacity: .6;
+}
+
+#summary {
+  font-size: .9em;
 }

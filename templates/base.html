@@ -26,8 +26,10 @@
           <p id="instructions">Click on a topic name on the left to add to the visualization below. </p>
         </div>
         <div class="row" id="info-row">
-          <div class="large-3 columns">
-            <div class="panel topic-container">
+          <div class="large-3 columns panel-container">
+            <div class="panel topic-container isVisible" id="0">
+              <p id="summary">{{summary}}</p>
+              <p style="font-weight:bold;">Click to explore more topics:</p>
               <ul id="topics-list">
               </ul>
             </div>
@@ -45,7 +47,7 @@
     var topiclist = ["{{data.name}}"];
     {% for element in data.children %}
       topiclist.push(decodeURI("{{element.name}}"));
-      $('#topics-list').append('<li class="topics isVisible" id="0">' + decodeURI("{{element.name}}") + '</li');
+      $('#topics-list').append('<li class="topics">' + decodeURI("{{element.name}}") + '</li');
     {% endfor %}
 
     var nodelist = turnIntoNodes(topiclist, 1)
@@ -87,16 +89,16 @@
             edges.add(edgelist[i]);
           }
 
-          var currId = $('.topics.isVisible').attr('id');
+          var currId = $('.topic-container').attr('id');
           currId = Number(currId);
           var newId = currId + 1;
 
-          $('.topics').hide();
-          $('.topics').removeClass('isVisible');
-          $('.topics-title').hide();
-          $('.topic-container').prepend('<h5 class="topics-title" id="' + newId + '"><span class="go-back">&larr;</span>'+ topic + '</h5>');
+          $('.topic-container').hide();
+          $('.topic-container').removeClass('isVisible').addClass('prevVisible');
+          newcontainer = $('.panel-container').prepend('<div class="panel topic-container isVisible" id="' + newId + '"><ul id="topics-list"></ul></div>')
+          $('.topic-container#' + newId).prepend('<h5 class="topics-title" id="' + newId + '"><span class="go-back">&larr;</span>'+ topic + '</h5>');
           for (i=0; i<newtopics.length; i++){
-            $('#topics-list').append('<li class="topics isVisible" id="' + newId + '">' + decodeURI(newtopics[i]) + '</li>');
+            $(newcontainer).find('#topics-list').append('<li class="topics isVisible" id="' + newId + '">' + decodeURI(newtopics[i]) + '</li>');
           }
         });
 
@@ -104,14 +106,13 @@
     });
 
     $("body").on("click", ".go-back", function() {
-      var currId = $('.topics.isVisible').attr('id');
-      $('.topics.isVisible').removeClass('.isVisible').hide();
-
+      var currId = $('.topic-container.isVisible').attr('id');
       var oldId = Number(currId) - 1;
-      console.log(oldId);
-      $('.topics-title#' + oldId).addClass('isVisible').show();
-      $('li .topics#'+ oldId).addClass('isVisible').show();
+
+      $('.topic-container.isVisible').hide().removeClass('isVisible');
+      $('.topic-container#' + oldId).addClass('isVisible').show();
     });
+
 
   });
 

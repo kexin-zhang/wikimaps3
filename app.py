@@ -11,8 +11,8 @@ def main():
 def search():
     topic = request.form['query'].strip()
     data = wikiscrape.topic_search(topic)
-    print(data)
-    return render_template('base.html', data=data)
+    summary = wikiscrape.summary(topic)
+    return render_template('base.html', data=data, summary=summary)
 
 @app.route("/subtopic", methods=["POST", "GET"])
 def add_subtopic():
