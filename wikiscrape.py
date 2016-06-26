@@ -4,11 +4,12 @@ import json
 import random
 import unicodedata
 import wikipedia
+from urllib.parse import quote
 
 def topic_search(topic):
     topic = topic.strip()
     topic = topic.replace(" ", "_")
-    url = 'https://en.wikipedia.org/wiki/' + topic
+    url = 'https://en.wikipedia.org/wiki/' + quote(topic)
     response = urllib.request.urlopen(url)
     html = response.read()
     text = html.decode()
@@ -41,7 +42,7 @@ def links(text):
         if 'Category:' in topic:
             i = topic.find(':')
             topic = topic[i+1:]
-        if ':' not in topic and topic!= 'Digital object identifier' and 'PubMed' not in topic and topic != 'Main Page':
+        if ':' not in topic and topic not in ['Digital object identifier', 'Main Page', 'International Standard Book Number'] and 'PubMed' not in topic:
             results.append(topic)
 
     return results[0:5]

@@ -29,9 +29,6 @@
           <div class="large-3 columns">
             <div class="panel topic-container">
               <ul id="topics-list">
-              {% for element in data.children %}
-                <li class="topics isVisible" id="0">{{ element.name }}</li>
-              {% endfor %}
               </ul>
             </div>
           </div>
@@ -47,7 +44,8 @@
   $(document).ready(function(){
     var topiclist = ["{{data.name}}"];
     {% for element in data.children %}
-      topiclist.push("{{element.name}}");
+      topiclist.push(decodeURI("{{element.name}}"));
+      $('#topics-list').append('<li class="topics isVisible" id="0">' + decodeURI("{{element.name}}") + '</li');
     {% endfor %}
 
     var nodelist = turnIntoNodes(topiclist, 1)
@@ -63,7 +61,7 @@
       var topic = $(this).text();
       console.log(topic);
       if (clicked.indexOf(topic) == -1) {
-        clicked.push(topic);
+        clicked.push(decodeURI(topic));
         var newtopics = [];
 
         $.getJSON('/subtopic', {'topic': topic},
@@ -72,12 +70,12 @@
           var len = topiclist.length + 1;
 
           for (i=0; i<data.children.length; i++){
-            topiclist.push(data.children[i].name);
+            topiclist.push(decodeURI(data.children[i].name));
             newtopics.push(data.children[i].name);
           }
           console.log(topiclist);
 
-          var index = topiclist.indexOf(topic) + 1;
+          var index = topiclist.indexOf(decodeURI(topic)) + 1;
           var nodelist = turnIntoNodes(newtopics, len);
           var edgelist = turnIntoEdges(index, len, len+4);
           console.log(edgelist);
@@ -98,7 +96,7 @@
           $('.topics-title').hide();
           $('.topic-container').prepend('<h5 class="topics-title" id="' + newId + '"><span class="go-back">&larr;</span>'+ topic + '</h5>');
           for (i=0; i<newtopics.length; i++){
-            $('#topics-list').append('<li class="topics isVisible" id="' + newId + '">' + newtopics[i] + '</li>');
+            $('#topics-list').append('<li class="topics isVisible" id="' + newId + '">' + decodeURI(newtopics[i]) + '</li>');
           }
         });
 
@@ -122,7 +120,7 @@
   var turnIntoNodes = function(topiclist, i) {
     var nodelist = [];
     for (x=i; x<i+topiclist.length; x++) {
-      nodelist.push({'id':x, 'label':topiclist[x-i] });
+      nodelist.push({'id':x, 'label':decodeURI(topiclist[x-i]) });
     }
     return nodelist;
   }
