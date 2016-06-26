@@ -58,6 +58,7 @@
     var edges = response[1];
     console.log(nodes);
     var clicked = []
+    var clickedOrder = [0]
 
     $("body").on("click", ".topics", function() {
       var topic = $(this).text();
@@ -70,7 +71,6 @@
         function(data){
           console.log(data);
           var summary = data.summary;
-          console.log(summary);
           var len = topiclist.length + 1;
 
           for (i=0; i<data.children.length; i++){
@@ -94,9 +94,10 @@
           var currId = $('.topic-container').attr('id');
           currId = Number(currId);
           var newId = currId + 1;
+          clickedOrder.push(newId);
 
           $('.topic-container').hide();
-          $('.topic-container').removeClass('isVisible').addClass('prevVisible');
+          $('.topic-container').removeClass('isVisible');
           newcontainer = $('.panel-container').prepend('<div class="panel topic-container isVisible" id="' + newId + '"><ul id="topics-list"></ul></div>')
           $('.topic-container#' + newId).prepend('<p style="font-weight:bold;">Click to explore more topics:</p>');
           $('.topic-container#' + newId).prepend('<p id="summary">' + summary + '</p>')
@@ -111,7 +112,10 @@
 
     $("body").on("click", ".go-back", function() {
       var currId = $('.topic-container.isVisible').attr('id');
-      var oldId = Number(currId) - 1;
+      var oldId = clickedOrder.indexOf(Number(currId)) - 1;
+
+      oldId = clickedOrder[oldId];
+      clickedOrder.push(oldId);
 
       $('.topic-container.isVisible').hide().removeClass('isVisible');
       $('.topic-container#' + oldId).addClass('isVisible').show();
