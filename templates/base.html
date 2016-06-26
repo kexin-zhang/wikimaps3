@@ -54,22 +54,44 @@
     var nodelist = turnIntoNodes(topiclist, 1)
     var edgelist = turnIntoEdges(1, 2, 6)
 
-    draw(nodelist, edgelist);
+    var response = draw(nodelist, edgelist);
+    var nodes = response[0];
+    var edges = response[1];
+    console.log(nodes);
 
     $('.topics').click(function(){
       var topic = $(this).text();
       console.log(topic);
-      subtopic(topic);
+      response = subtopic(topic);
+      console.log(response);
+
     });
+
+    var subtopic = function(topic) {
+      $.getJSON('/subtopic', {'topic': topic},
+      function(data){
+        console.log(data);
+        var newtopics = [];
+        for (i=0; i<data.children.length; i++){
+          topiclist.push(data.children[i].name);
+          newtopics.push(data.children[i].name);
+        }
+        var len = topiclist.length + 1
+        var index = topiclist.indexOf(topic) + 1;
+        var nodelist = turnIntoNodes(newtopics, len);
+        var edgelist = turnIntoEdges(index, len, len+4);
+
+        for (i=0; i<nodelist.length; i++) {
+          nodes.add(nodelist[i]);
+        }
+        for (i=0; i<edgelist.length; i++){
+          edges.add(edgelist[i]);
+        }
+      });
+  }
   });
 
-  var subtopic = function(topic) {
-    $.getJSON('/subtopic', {'topic': topic},
-    function(data){
-      console.log(data);
-    }
-  );
-}
+
 
   var turnIntoNodes = function(topiclist, i) {
     var nodelist = [];
@@ -91,9 +113,6 @@
 
     var nodes = new vis.DataSet(nodelist);
     var edges = new vis.DataSet(edgelist);
-
-    console.log(nodelist);
-    console.log(edgelist);
 
     var container = document.getElementById('mynetwork');
     var data = {
@@ -118,6 +137,8 @@
      }
     };
     var network = new vis.Network(container, data, options);
+
+    return [nodes, edges];
 
   }
   </script>
