@@ -10,7 +10,7 @@
     <title>WikiMaps</title>
   </head>
   <body>
-    <div class="row" style="max-width: 90rem;">
+    <div class="row" style="max-width: 95rem;">
       <form id="form2" action="/search" method="POST">
         <div class="row">
           <div class="small-3 large-2 columns">
@@ -25,9 +25,10 @@
           <h1 id="title">{{ data.name }}</h1>
           <p id="instructions">Click on a topic name on the left to add to the visualization below. </p>
         </div>
+        <div class="panel">
         <div class="row" id="info-row">
           <div class="large-3 columns panel-container">
-            <div class="panel topic-container isVisible" id="0">
+            <div class="topic-container isVisible" id="0">
               <p id="summary">{{summary}}</p>
               <p style="font-weight:bold;">Click to explore more topics:</p>
               <ul id="topics-list">
@@ -35,11 +36,12 @@
             </div>
           </div>
           <div class="large-9 columns" id="vis">
-            <div class="panel" id="mynetwork">
+            <div class="" id="mynetwork">
 
             </div>
           </div>
         </div>
+      </div>
     </div>
   </body>
   <script>
