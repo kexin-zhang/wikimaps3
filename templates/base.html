@@ -69,6 +69,8 @@
         $.getJSON('/subtopic', {'topic': topic},
         function(data){
           console.log(data);
+          var summary = data.summary;
+          console.log(summary);
           var len = topiclist.length + 1;
 
           for (i=0; i<data.children.length; i++){
@@ -96,6 +98,8 @@
           $('.topic-container').hide();
           $('.topic-container').removeClass('isVisible').addClass('prevVisible');
           newcontainer = $('.panel-container').prepend('<div class="panel topic-container isVisible" id="' + newId + '"><ul id="topics-list"></ul></div>')
+          $('.topic-container#' + newId).prepend('<p style="font-weight:bold;">Click to explore more topics:</p>');
+          $('.topic-container#' + newId).prepend('<p id="summary">' + summary + '</p>')
           $('.topic-container#' + newId).prepend('<h5 class="topics-title" id="' + newId + '"><span class="go-back">&larr;</span>'+ topic + '</h5>');
           for (i=0; i<newtopics.length; i++){
             $(newcontainer).find('#topics-list').append('<li class="topics isVisible" id="' + newId + '">' + decodeURI(newtopics[i]) + '</li>');

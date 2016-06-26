@@ -18,6 +18,7 @@ def search():
 def add_subtopic():
     topic = request.args.get('topic')
     data = wikiscrape.topic_search(topic)
+    data['summary'] = wikiscrape.summary(topic)
     return json.dumps(data)
 
 
