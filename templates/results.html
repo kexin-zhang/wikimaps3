@@ -15,26 +15,11 @@
       </div>
     </div>
     <div class="large-9 columns" id="vis">
-      <div class="panel">
-        <canvas id="vis_canvas" width="800" height="700"/>
-        <script>
-        var subtopic = function(topic) {
-          $.getJSON('/subtopic', {'topic': topic},
-          function(data){
-            console.log(data);
-          }
-        );
-        };  
-          var graph = new Springy.Graph();
-          var root = graph.newNode({label: '{{data.name}}' })
-          {% for element in data.children %}
-            graph.newEdge(root, graph.newNode({label: "{{element.name}}", ondoubleclick: subtopic("{{element.name}}") }) )
-          {% endfor %}
+      <div class="panel" id="my-network">
 
-          $('#vis_canvas').springy({graph: graph});
-
-        </script>
       </div>
     </div>
   </div>
+
+  
 {% endblock %}

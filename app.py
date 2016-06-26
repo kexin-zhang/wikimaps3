@@ -12,13 +12,13 @@ def search():
     topic = request.form['query'].strip()
     data = wikiscrape.topic_search(topic)
     print(data)
-    return render_template('results.html', data=data)
+    return render_template('base.html', data=data)
 
 @app.route("/subtopic", methods=["POST", "GET"])
 def add_subtopic():
     topic = request.args.get('topic')
     data = wikiscrape.topic_search(topic)
-    return data
+    return json.dumps(data)
 
 
 if __name__ == '__main__':
