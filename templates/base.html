@@ -30,7 +30,7 @@
             <div class="panel topic-container">
               <ul id="topics-list">
               {% for element in data.children %}
-                <li class="topics">{{ element.name }}</li>
+                <li class="topics isVisible" id="0">{{ element.name }}</li>
               {% endfor %}
               </ul>
             </div>
@@ -89,41 +89,32 @@
             edges.add(edgelist[i]);
           }
 
+          var currId = $('.topics.isVisible').attr('id');
+          currId = Number(currId);
+          var newId = currId + 1;
+
           $('.topics').hide();
-          $('#topics-title').hide();
-          $('.topic-container').prepend('<h5 id="topics-title">'+ topic + '</h5>');
+          $('.topics').removeClass('isVisible');
+          $('.topics-title').hide();
+          $('.topic-container').prepend('<h5 class="topics-title" id="' + newId + '"><span class="go-back">&larr;</span>'+ topic + '</h5>');
           for (i=0; i<newtopics.length; i++){
-            $('#topics-list').append('<li class="topics">' + newtopics[i] + '</li>');
+            $('#topics-list').append('<li class="topics isVisible" id="' + newId + '">' + newtopics[i] + '</li>');
           }
         });
 
       }
     });
 
-    var subtopic = function(topic) {
-      var newtopics = [];
-      $.getJSON('/subtopic', {'topic': topic},
-      function(data){
-        console.log(data);
+    $("body").on("click", ".go-back", function() {
+      var currId = $('.topics.isVisible').attr('id');
+      $('.topics.isVisible').removeClass('.isVisible').hide();
 
-        for (i=0; i<data.children.length; i++){
-          topiclist.push(data.children[i].name);
-          newtopics.push(data.children[i].name);
-        }
-        var len = topiclist.length + 1
-        var index = topiclist.indexOf(topic) + 1;
-        var nodelist = turnIntoNodes(newtopics, len);
-        var edgelist = turnIntoEdges(index, len, len+4);
+      var oldId = Number(currId) - 1;
+      console.log(oldId);
+      $('.topics-title#' + oldId).addClass('isVisible').show();
+      $('li .topics#'+ oldId).addClass('isVisible').show();
+    });
 
-        for (i=0; i<nodelist.length; i++) {
-          nodes.add(nodelist[i]);
-        }
-        for (i=0; i<edgelist.length; i++){
-          edges.add(edgelist[i]);
-        }
-      });
-      return newtopics;
-  }
   });
 
 

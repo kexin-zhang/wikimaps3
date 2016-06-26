@@ -41,7 +41,7 @@ def links(text):
         if 'Category:' in topic:
             i = topic.find(':')
             topic = topic[i+1:]
-        if ':' not in topic and topic!= 'Digital Object Identifier' and 'PubMed' not in topic and topic != 'Main Page':
+        if ':' not in topic and topic!= 'Digital object identifier' and 'PubMed' not in topic and topic != 'Main Page':
             results.append(topic)
 
     return results[0:5]
