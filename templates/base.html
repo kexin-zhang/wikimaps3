@@ -10,22 +10,19 @@
     <title>WikiMaps</title>
   </head>
   <body>
+    <div class="row" id="nav-bar" style="max-width: 100%;">
+      <div class="large-10 columns">
+          <form action="/search" method="POST">
+              <span id="menu-title" class="right inline"><a href="{{ url_for('.main') }}">WIKIMAPS</a></span>
+              <input type="text" name="query" id="menu-input" placeholder="Search for a topic">
+          </form>
+      </div>
+    </div>
     <div class="row" style="max-width: 95rem;">
-      <form id="form2" action="/search" method="POST">
-        <div class="row">
-          <div class="small-3 large-2 columns">
-            <label for="right-label" class="right inline" style="text-align:center;"><a href="{{ url_for('.main') }}">WIKIMAPS</a></label>
-          </div>
-          <div class="small-9 large-10 columns">
-            <input type="text" id="right-label" name="query" placeholder="Search for a topic">
-          </div>
-        </div>
-      </form>
         <div class="row">
           <h1 id="title">{{ data.name }}</h1>
           <p id="instructions">Click on a topic name on the left to add to the visualization below. </p>
         </div>
-        <div class="panel">
         <div class="row" id="info-row">
           <div class="large-3 columns panel-container">
             <div class="topic-container isVisible" id="0">
@@ -41,7 +38,6 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
   </body>
   <script>
@@ -100,7 +96,7 @@
 
           $('.topic-container').hide();
           $('.topic-container').removeClass('isVisible');
-          newcontainer = $('.panel-container').prepend('<div class="panel topic-container isVisible" id="' + newId + '"><ul id="topics-list"></ul></div>')
+          newcontainer = $('.panel-container').prepend('<div class="topic-container isVisible" id="' + newId + '"><ul id="topics-list"></ul></div>')
           $('.topic-container#' + newId).prepend('<p style="font-weight:bold;">Click to explore more topics:</p>');
           $('.topic-container#' + newId).prepend('<p id="summary">' + summary + '</p>')
           $('.topic-container#' + newId).prepend('<h5 class="topics-title" id="' + newId + '"><span class="go-back">&larr;</span>'+ topic + '</h5>');

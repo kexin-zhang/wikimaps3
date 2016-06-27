@@ -1,6 +1,10 @@
 body {
-  background-image: url('footer_lodyas.png');
   font-family: 'Lato', sans-serif !important;
+  background-color: #FCFCFC;
+}
+
+.background-pic {
+  background-image: url('footer_lodyas.png');
 }
 
 #home {
@@ -32,9 +36,10 @@ body {
 }
 
 #title {
-  color: #F7F7F7;
+  color: #3F3F3F;
   font-size: 3.5rem;
   text-align: center;
+  padding-top: 20px;
 }
 
 .topics {
@@ -61,7 +66,7 @@ body {
 #instructions {
   font-style: italic;
   text-align: center;
-  color: white;
+  color: #3F3F3F;
 }
 
 .go-back {
@@ -77,6 +82,27 @@ body {
   font-size: .9em;
 }
 
-.topic-container {
-  padding-left: 10px;
+#menu-title {
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+
+#menu-title a{
+  color: #3399ff;
+}
+
+#menu-title a:hover {
+  color: #3399ff;
+}
+
+#menu-input {
+  display: inline-block;
+  margin-left: 10px;
+  width: 40rem;
+  margin-bottom: 0;
+  height: 3rem;
+}
+
+#nav-bar {
+  background-color: black;
 }
