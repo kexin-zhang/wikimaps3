@@ -19,8 +19,8 @@
       </div>
     </div>
     <div class="row" style="max-width: 95rem;">
-        <div class="row">
-          <h1 id="title">{{ data.name }}</h1>
+        <div class="row" style="text-align: center;">
+          <a href="{{data.url}}" target="_blank" id="title">{{ data.name }}</a>
           <p id="instructions">Click on a topic name on the left to add to the visualization below. </p>
         </div>
         <div class="row" id="info-row">
@@ -79,7 +79,7 @@
 
           var index = topiclist.indexOf(decodeURI(topic)) + 1;
           var nodelist = turnIntoNodes(newtopics, len);
-          var edgelist = turnIntoEdges(index, len, len+4);
+          var edgelist = turnIntoEdges(index, len, len + data.children.length -1);
           console.log(edgelist);
 
           for (i=0; i<nodelist.length; i++) {
@@ -99,7 +99,7 @@
           newcontainer = $('.panel-container').prepend('<div class="topic-container isVisible" id="' + newId + '"><ul id="topics-list"></ul></div>')
           $('.topic-container#' + newId).prepend('<p style="font-weight:bold;">Click to explore more topics:</p>');
           $('.topic-container#' + newId).prepend('<p id="summary">' + summary + '</p>')
-          $('.topic-container#' + newId).prepend('<h5 class="topics-title" id="' + newId + '"><span class="go-back">&larr;</span>'+ topic + '</h5>');
+          $('.topic-container#' + newId).prepend('<span class="go-back">&larr;</span><a href="' + data.url +'" target="_blank" class="topics-title" id="' + newId + '">'+ topic + '</a>');
           for (i=0; i<newtopics.length; i++){
             $(newcontainer).find('#topics-list').append('<li class="topics isVisible" id="' + newId + '">' + decodeURI(newtopics[i]) + '</li>');
           }

@@ -26,7 +26,7 @@ def topic_search(topic):
 
 #    with open('data.json', 'w') as outfile:
 #        json.dump({"name": title, "children": topics}, outfile)
-    return {"name": title, "children": children}
+    return {"name": title, "children": children, 'url': url}
 
 def links(text):
     pat = 'href="/wiki/([^"]+)"'
@@ -42,7 +42,7 @@ def links(text):
         if 'Category:' in topic:
             i = topic.find(':')
             topic = topic[i+1:]
-        if ':' not in topic and topic not in ['Digital object identifier', 'Main Page', 'International Standard Book Number'] and 'PubMed' not in topic:
+        if ':' not in topic and topic not in ['Digital object identifier', 'Main Page', 'International Standard Book Number'] and 'PubMed' not in topic and 'All articles' not in topic and 'Articles containing' not in topic and 'Articles lacking sources' not in topic:
             results.append(topic)
 
     return results[0:5]
