@@ -114,6 +114,7 @@
       var oldId = clickedOrder.indexOf(Number(currId)) - 1;
 
       oldId = clickedOrder[oldId];
+      clickedOrder.push(oldId);
 
       $('.topic-container.isVisible').hide().removeClass('isVisible');
       $('.topic-container#' + oldId).addClass('isVisible').show();
@@ -125,10 +126,10 @@
 
     $("body").on("click", ".go-forward", function() {
       var currId = $('.topic-container.isVisible').attr('id');
-      var oldId = clickedOrder.indexOf(Number(currId)) + 1;
+      var oldId = clickedOrder.lastIndexOf(Number(currId), -2) + 1;
 
-      console.log(oldId);
       oldId = clickedOrder[oldId];
+      clickedOrder.push(oldId);
 
       $('.topic-container.isVisible').hide().removeClass('isVisible');
       $('.topic-container#' + oldId).addClass('isVisible').show();
