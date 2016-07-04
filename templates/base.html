@@ -24,6 +24,9 @@
           <p id="instructions">Click on a topic name on the left to add to the visualization below. </p>
         </div>
         <div class="row" id="info-row">
+          <div id="loading" style="display:none;">
+            <img src="static/rolling.gif"/>
+          </div>
           <div class="large-3 columns panel-container">
             <div class="topic-container isVisible" id="0">
               <a class="topics-title"></a>
@@ -66,9 +69,10 @@
         clicked.push(decodeURI(topic));
         var newtopics = [];
 
+        $('#loading').show();
         $.getJSON('/subtopic', {'topic': topic},
         function(data){
-          console.log(data);
+          $('#loading').hide();
           var summary = data.summary;
           var len = topiclist.length + 1;
 
@@ -111,10 +115,10 @@
 
     $("body").on("click", ".go-back", function() {
       var currId = $('.topic-container.isVisible').attr('id');
-      var oldId = clickedOrder.indexOf(Number(currId)) - 1;
+      var oldId = clickedOrder.lastIndexOf(Number(currId)) - 1;
 
       oldId = clickedOrder[oldId];
-      clickedOrder.push(oldId);
+      // clickedOrder.push(oldId);
 
       $('.topic-container.isVisible').hide().removeClass('isVisible');
       $('.topic-container#' + oldId).addClass('isVisible').show();
@@ -129,7 +133,7 @@
       var oldId = clickedOrder.lastIndexOf(Number(currId), -2) + 1;
 
       oldId = clickedOrder[oldId];
-      clickedOrder.push(oldId);
+      // clickedOrder.push(oldId);
 
       $('.topic-container.isVisible').hide().removeClass('isVisible');
       $('.topic-container#' + oldId).addClass('isVisible').show();

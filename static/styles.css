@@ -8,7 +8,7 @@ body {
 }
 
 #home {
-  color: #737373;
+  color: #50595C;
   text-align: center;
 }
 
@@ -96,7 +96,7 @@ body {
 }
 
 #menu-title a{
-  color: white;
+  color: #F0F0F0;
   padding-right: 10px;
 }
 
@@ -130,4 +130,20 @@ body {
 #form-input {
   margin-left: 19rem;
   margin-right: 19rem;
+}
+
+#loading {
+  position: absolute;
+  margin: auto;
+  width: 100rem;
+  height: 1000px;
+  background-color: white;
+  opacity: .6;
+  z-index: 100;
+}
+
+#loading img {
+  display: block;
+  margin: auto;
+  padding-top: 15rem;
 }
