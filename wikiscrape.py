@@ -42,7 +42,7 @@ def links(text):
         if 'Category:' in topic:
             i = topic.find(':')
             topic = topic[i+1:]
-        if ':' not in topic and topic not in ['Digital object identifier', 'Main Page', 'International Standard Book Number'] and 'PubMed' not in topic and 'All articles' not in topic and 'Articles containing' not in topic and 'Articles lacking sources' not in topic:
+        if ':' not in topic and topic not in ['Digital object identifier', 'Main Page', 'International Standard Book Number'] and 'ISO' not in topic and 'PubMed' not in topic and 'All articles' not in topic and 'Articles containing' not in topic and 'Articles lacking sources' not in topic and 'Articles needing additional references' not in topic and "Wikipedia articles" not in topic:
             results.append(topic)
 
     return results[0:5]

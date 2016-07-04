@@ -18,7 +18,7 @@
           </form>
       </div>
     </div>
-    <div class="row" style="max-width: 95rem;">
+    <div class="row" style="max-width: 95rem; color:#454545;">
         <div class="row" style="text-align: center;">
           <a href="{{data.url}}" target="_blank" id="title">{{ data.name }}</a>
           <p id="instructions">Click on a topic name on the left to add to the visualization below. </p>
@@ -26,8 +26,9 @@
         <div class="row" id="info-row">
           <div class="large-3 columns panel-container">
             <div class="topic-container isVisible" id="0">
+              <a class="topics-title"></a>
               <p id="summary">{{summary}}</p>
-              <p style="font-weight:bold;">Click to explore more topics:</p>
+              <p style="font-weight:bold;">Explore related topics:</p>
               <ul id="topics-list">
               </ul>
             </div>
@@ -77,7 +78,7 @@
           }
           console.log(topiclist);
 
-          var index = topiclist.indexOf(decodeURI(topic)) + 1;
+          var index = topiclist.lastIndexOf(decodeURI(topic)) + 1;
           var nodelist = turnIntoNodes(newtopics, len);
           var edgelist = turnIntoEdges(index, len, len + data.children.length -1);
           console.log(edgelist);
@@ -97,7 +98,7 @@
           $('.topic-container').hide();
           $('.topic-container').removeClass('isVisible');
           newcontainer = $('.panel-container').prepend('<div class="topic-container isVisible" id="' + newId + '"><ul id="topics-list"></ul></div>')
-          $('.topic-container#' + newId).prepend('<p style="font-weight:bold;">Click to explore more topics:</p>');
+          $('.topic-container#' + newId).prepend('<p style="font-weight:bold;">Explore related topics:</p>');
           $('.topic-container#' + newId).prepend('<p id="summary">' + summary + '</p>')
           $('.topic-container#' + newId).prepend('<span class="go-back">&larr;</span><a href="' + data.url +'" target="_blank" class="topics-title" id="' + newId + '">'+ topic + '</a>');
           for (i=0; i<newtopics.length; i++){
@@ -113,7 +114,21 @@
       var oldId = clickedOrder.indexOf(Number(currId)) - 1;
 
       oldId = clickedOrder[oldId];
-      clickedOrder.push(oldId);
+
+      $('.topic-container.isVisible').hide().removeClass('isVisible');
+      $('.topic-container#' + oldId).addClass('isVisible').show();
+
+      if ($('.isVisible span').hasClass('go-forward') == false) {
+        $('<span class="go-forward">&rarr;</span><br>').insertAfter('.isVisible .topics-title');
+      }
+    });
+
+    $("body").on("click", ".go-forward", function() {
+      var currId = $('.topic-container.isVisible').attr('id');
+      var oldId = clickedOrder.indexOf(Number(currId)) + 1;
+
+      console.log(oldId);
+      oldId = clickedOrder[oldId];
 
       $('.topic-container.isVisible').hide().removeClass('isVisible');
       $('.topic-container#' + oldId).addClass('isVisible').show();

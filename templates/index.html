@@ -7,102 +7,26 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='foundation-6.2.3-complete/css/foundation.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.css">
-    <script src="https://use.fontawesome.com/d2c891c2de.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.js"></script>
     <title>WikiMaps</title>
   </head>
-  <body class="background-pic" onload="draw()">
+  <body class="background-pic">
     <div class="row full-width" id="home">
       <div class="row">
         <h1>WIKIMAPS</h1>
       </div>
-      <div class="row">
-        <div class="large-12 large-centered columns">
-          <div class="panel">
-            <div id="mynetwork"></div>
-            <script>
-              var turnIntoNodes = function(topiclist, i) {
-                var nodelist = [];
-                for (x=i; x<i+topiclist.length; x++) {
-                  nodelist.push({'id':x, 'label':topiclist[x-i] });
-                }
-                return nodelist;
-              }
 
-              var turnIntoEdges = function(root, start, end) {
-                var edgelist = [];
-                for (x=start; x<=end; x++) {
-                  edgelist.push({'from':root, 'to':x});
-                }
-                return edgelist;
-              };
-
-              function draw() {
-                var firstRound = ['VisualEditor', 'American Civil War', 'The Wikipedia Revolution', 'Industrial Organization', 'Slogan'];
-                var industrialTopics = ['Economic growth', 'Microeconomics', 'Game theory', 'Antitrust law', 'Nonrenewable resource'];
-                var warTopics = ['Stonewall Jackson', 'George Meade', 'Battle of Secessionville', 'Gone with the Wind (film)', 'Siege of Vicksburg'];
-                var visualTopics = ['Wikipedian', 'The Register', 'Node.js', 'Beta software', 'Wikimedia Foundation'];
-                var sloganTopics = ['Censorship', 'Propaganda techniques', 'Television advertisement', 'Anglicisation', 'Taglines'];
-                var revolutionTopics = ['Andrew Lih', 'Larry Sanger', 'New media', 'Nonfiction', 'Essjay controversy'];
-
-                var nodeslist = [{id:0, label:'Wikipedia'}]
-                var nodeslist = nodeslist.concat(turnIntoNodes(firstRound, 1));
-                var nodeslist = nodeslist.concat(turnIntoNodes(industrialTopics, 6));
-                var nodeslist = nodeslist.concat(turnIntoNodes(warTopics, 11));
-                var nodeslist = nodeslist.concat(turnIntoNodes(visualTopics, 16));
-                var nodeslist = nodeslist.concat(turnIntoNodes(sloganTopics, 21));
-                var nodeslist = nodeslist.concat(turnIntoNodes(revolutionTopics, 26));
-
-                var nodes = new vis.DataSet(nodeslist);
-                console.log(nodes);
-
-                var edgelist = turnIntoEdges(0, 1, 5);
-                var edgelist = edgelist.concat(turnIntoEdges(4, 6, 10));
-                var edgelist = edgelist.concat(turnIntoEdges(2, 11, 15));
-                var edgelist = edgelist.concat(turnIntoEdges(1, 16, 20));
-                var edgelist = edgelist.concat(turnIntoEdges(5, 21, 25));
-                var edgelist = edgelist.concat(turnIntoEdges(3, 26, 30));
-                console.log(edgelist);
-                var edges = new vis.DataSet(edgelist);
-                var container = document.getElementById('mynetwork');
-                var data = {
-                  nodes: nodes,
-                  edges: edges
-                };
-                var options = { nodes: {
-                    shape: 'dot',
-                    size: 16
-                },
-                  physics: {
-                     forceAtlas2Based: {
-                         gravitationalConstant: -26,
-                         centralGravity: 0.005,
-                         springLength: 230,
-                         springConstant: 0.18
-                     },
-                     maxVelocity: 146,
-                     solver: 'forceAtlas2Based',
-                     timestep: 0.35,
-                     stabilization: {iterations: 150}
-                 }
-                };
-                var network = new vis.Network(container, data, options);
-              }
-            </script>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <h4>Explore Wikipedia like never before.</h4>
-      </div>
       <form action="/search" method="POST">
         <div class="row">
-          <div class="large-12 columns">
-            <input name="query" type="text" placeholder="Search for a topic">
+          <div class="large-6 columns">
+            <input name="query" type="text" placeholder="Search for a topic" id="form-input">
           </div>
         </div>
       </form>
+      <div class="row">
+        <h4>Explore Wikipedia like never before.</h4>
+      </div>
     </div>
   </body>
 </html>
