@@ -92,7 +92,7 @@ body {
 
 #menu-title {
   font-size: 1.5rem;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
 }
 
 #menu-title a{
@@ -146,4 +146,27 @@ body {
   display: block;
   margin: auto;
   padding-top: 15rem;
+}
+
+#loading-msg {
+  text-align: center;
+  width: 50%;
+  padding-top: 15rem
+  display: none;
+}
+
+.menu-links {
+  float: right;
+  font-size: 1.3em;
+  padding-top: 7px;
+  padding-left: 20px;
+}
+
+.menu-links a{
+  color: #F0F0F0;
+  letter-spacing: 2px;
+}
+
+.menu-links a:hover {
+  color: #3399ff;
 }
